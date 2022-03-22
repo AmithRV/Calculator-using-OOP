@@ -40,7 +40,7 @@ class CalculatorEngine {
                         switch (a[i]) {
                             case '*':
                                 total = a[i - 1] * a[i + 1];
-                                a.splice(i - 1, 3, total);
+                                a.splice(i - 1, 3, total);  //?
                                 i--;
                                 break;
                             case '/':
@@ -49,17 +49,14 @@ class CalculatorEngine {
                                 } else {
                                     total = a[i - 1] / a[i + 1];
                                 }
-                                a.splice(i - 1, 3, total);
+                                a.splice(i - 1, 3, total); //?
                                 i--;
                                 break;
                             default:
                                 break;
                         }
                     } catch (e) {
-                        console.log(e.message);
-                        if (e.message == 'dividing by zero') {
-
-                        }
+                        console.log(e.name + ': ' + e.message);
                     }
                 }
             }
@@ -136,7 +133,8 @@ class CalculatorEngine {
 
 let inti = function () {
     let inputOutput = document.getElementById("calculator__output");
-    let calculate = function (e) {
+
+    let calculate = function (e) {  // event hadler
         let element = e.target;
         let op = element.id;
         let engine = new CalculatorEngine();
@@ -159,8 +157,7 @@ let inti = function () {
                     inputOutput.value += " " + op + " ";
                     engine.setResult(false);
                 }
-            }
-            else if (op === "c") {
+            }else if (op === "c") {
                 inputOutput.value = engine.clearLast();
                 engine.setResult(true);
             } else if (op === "=" && !engine.getResult()) {
@@ -175,12 +172,6 @@ let inti = function () {
     (function () {
         let calc = document.getElementById('calculator');
         let buttons = calc.getElementsByTagName('button');
-
-        try {
-            let i = 0;
-        } catch (error) {
-            console.log('error : ', error);
-        }
 
         for (let i = 0; i < buttons.length; i++) {
             buttons[i].addEventListener('click', calculate);
